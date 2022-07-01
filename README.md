@@ -1,6 +1,6 @@
 How run
 ---
-You need have `python3` and all dependencies (list below) installed.
+You must have `python3` and all dependencies installed (list below).
 ```python
 python3 main.py
 ```
