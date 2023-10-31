@@ -87,4 +87,3 @@ class Option:
         self.man.save_plot("plot.png")
         add()#11
         return {"min":self.Min, "max":self.Max, "root":self.Root, "integral":self.Integral, "monte":self.MonteIntegral, "rect":self.RectangleIntegral}
-        
