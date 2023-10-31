@@ -1,10 +1,8 @@
-import function 
+import function
 import plot
-import numpy as np
 
 import integral_montecarlo as montecarlo
 import rectangle_method
-
 
 class Manager:
     """
@@ -21,7 +19,7 @@ class Manager:
         self.__tol = tol
         self.__id = Manager.base_id
         Manager.base_id = (Manager.base_id+1)%len(Manager.base_color)
-        
+
     @property
     def a(self):
         return self.__a
@@ -93,7 +91,7 @@ class Manager:
         marker = Manager.base_color[self.__id]+'o'
         minxy = self.__func.find_minimum(self.__a, self.__b, self.__tol)
         if drawIt:
-            if text == None:
+            if text is None:
                 plot.draw_point(minxy, marker, "Min")
             else:
                 plot.draw_point(minxy, marker, text)
@@ -106,8 +104,8 @@ class Manager:
         """
         marker = Manager.base_color[self.__id]+'o'
         root = self.__func.find_root(self.__a, self.__b, self.__tol)
-        if root != None and drawIt:
-            if text == None:
+        if root is not None and drawIt:
+            if text is None:
                 plot.draw_point(root, marker, "x0")
             else:
                 plot.draw_point(root, marker, text)
@@ -121,7 +119,7 @@ class Manager:
         marker = Manager.base_color[self.__id]+'o'
         maxxy = self.__func.find_maximum(self.__a, self.__b, self.__tol)
         if drawIt:
-            if text == None:
+            if text is None:
                 plot.draw_point(maxxy, marker, "Max")
             else:
                 plot.draw_point(maxxy, marker, text)
@@ -129,16 +127,16 @@ class Manager:
 
     def integral(self, a = None, b = None):
         """
-        Calculation of the integral on the range: self.a self.b lub a, b
+        Calculation of the integral on the range: self.a self.b or a, b
         """
-        if ( a == b or a >= b ) and a != None:
+        if a is not None and ( a == b or a >= b ):
             raise Exception("a == b or a >= b")
-        elif a == None and b != None:
+        elif a is None and b is not None:
             raise Exception("If a is None, b must have too")
-        elif b == None and a != None:
+        elif b is None and a is not None:
             raise Exception("If b is None, a must have too")
-        elif b != None and a != None:
-                return self.__func.integral(a, b)
+        elif b is not None and a is not None:
+            return self.__func.integral(a, b)
         return self.__func.integral(self.__a, self.__b)
 
     def MonteCarlo(self, n, draw = True):
@@ -149,7 +147,7 @@ class Manager:
         if n <= 0:
             raise Exception(" n <= 0")
         return montecarlo.MonteCarlo(self.__func, self.__a, self.__b, n, draw)
-    
+
     def RectangleMethod(self, width, draw = True):
         """
         Return integral rectangle method (its calculate area under plot).
@@ -157,23 +155,23 @@ class Manager:
         """
         if width <= 0:
             raise Exception(" width <= 0")
-        elif not isinstance(width, int):
+        if not isinstance(width, int):
             raise Exception(" Width is not a integer")
 
         return rectangle_method.rectangle_method(self.__func, self.__a, self.__b, width, draw)
-    
+
     def save_plot(self, Filename):
         """
         Save plot to file
         """
         plot.save_as(Filename)
-    
+
     def mirror_horizontal(self):
         """
         Horizontal reflection
         """
         self.__func.reverse_X()
-    
+
     def mirror_vertical(self):
         """
         Vertical reflection

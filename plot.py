@@ -1,6 +1,4 @@
 import matplotlib.pyplot as plt
-import numpy as np
-import matplotlib.colors as mcolors
 
 def graph(Function, a, b, step, tol=10**-5):
     """
@@ -41,10 +39,10 @@ def draw_point(xy, marker = 'o', text = None, fillstyle='full'):
     """
     Mark the point
     """
-    if xy == None or len(xy) != 2:
+    if xy is None or len(xy) != 2:
         raise Exception(" len(xy) != 2 or xy == None ")
     plt.plot(xy[0], xy[1], marker, fillstyle=fillstyle)
-    if text != None:
+    if text is not None:
         plt.annotate(text, (xy[0], xy[1]))
 
 def draw_scatter(xy, s, facecolors, edgecolors):

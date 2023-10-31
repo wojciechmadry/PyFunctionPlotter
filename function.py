@@ -1,12 +1,10 @@
 import scipy
 import scipy.optimize
 import scipy.integrate
-from math import *
-import numpy as np
 
 def fix_check_function(MyFunc):
     """
-    Replace 
+    Replace
     ^ to **
     , to .
     X to x
@@ -16,8 +14,6 @@ def fix_check_function(MyFunc):
     MyFunc = MyFunc.replace("X", "x")
 
     return MyFunc
-
-
 
 class Function:
     """
@@ -40,7 +36,7 @@ class Function:
         axis OY reflection
         """
         func = self.__callable
-        self.__callable = lambda x: func(-x)
+        self.__callable = lambda _x: func(-_x)
 
     def function_at(self, x):
         """
@@ -49,7 +45,7 @@ class Function:
         try:
             return self.__callable(x)
         except:
-            return None
+            raise Exception("Cannot call a function")
 
     def at(self, x):
         """
@@ -82,7 +78,6 @@ class Function:
         self.__funcR = '-('+self.__func+')'
         self.__callable = eval('lambda x: ' + self.__func)
 
-        
     def find_minimum(self, a, b, tol = 10**-5):
         """
         Find minimum in function
@@ -155,8 +150,3 @@ class Function:
             return scipy.integrate.quad(self.function_at,a, b)[0]
         except:
             return None
-
-
-
-
-
